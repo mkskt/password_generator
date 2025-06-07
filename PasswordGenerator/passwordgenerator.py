@@ -1,6 +1,41 @@
 import random
 import time
 from datetime import datetime
+import requests
+import subprocess
+import sys
+
+LOCAL_VERSION = "1.0.0"
+
+############################################
+
+def check_for_updates():
+    try:
+        url = "https://raw.githubusercontent.com/mkskt/password_generator/main/version.txt"
+        r = requests.get(url, timeout=5)
+        if r.status_code == 200:
+            remote_version = r.text.strip()
+            if remote_version != LOCAL_VERSION:
+                print(f"New version is available: {remote_version}")
+                while True:
+                  chooseUpdate = input("Do you wish to update? Y/N: ").strip().lower()
+                  if chooseUpdate in ('y', 'yes'):
+                      print("\nWaiting for an update...")
+                      time.sleep(4)
+                      subprocess.Popen(['cmd', '/c', 'start', 'python', 'updater.py'])
+                      sys.exit(0)
+                  elif chooseUpdate in ('n', 'no'):
+                      print("Skipped update\n")
+                      break
+                  else:
+                      print("Wrong answer\n")
+                      continue
+            else:
+                print("Program is up to date!\n")
+        else:
+            print(f"Could not verify version. Status: {r.status_code}")
+    except Exception as e:
+        print(f"Error while checking if update is available: {e}")
 
 ##############################################
 
@@ -271,4 +306,6 @@ def passwordCharacterisation():
             print("\nChoose a number")
             continue
 
-passwordCharacterisation()
+if __name__ == "__main__":
+    check_for_updates()
+    passwordCharacterisation()

@@ -32,20 +32,25 @@ requests = install_and_import_requests()
 
 def update():
     url = "https://raw.githubusercontent.com/mkskt/password_generator/main/PasswordGenerator/passwordgenerator.py"
-    r = requests.get(url)
-    if r.status_code == 200:
-        print("\nChecking if update is available...\n", flush=True)
-        with open("passwordgenerator.py", "wb") as f:
-            f.write(r.content)
-        time.sleep(3)
-        print("\nPassword Generator has been updated.", flush=True)
-    else:
-        print(f"\nError while downloading: status {r.status_code}", flush=True)
+    try:
+        r = requests.get(url, timeout=10)
+        r.raise_for_status()
+    except Exception as e:
+        print(f"Error downloading update: {e}")
+        sys.exit(1)
+
+    print("\nChecking if update is available...\n", flush=True)
+    with open("passwordgenerator.py", "wb") as f:
+        f.write(r.content)
+    time.sleep(3)
+    print("\nPassword Generator has been updated.", flush=True)
 
 update()
 
-import subprocess
+print("\nLaunching updated Password Generator...\n")
 
-subprocess.Popen(['cmd', '/c', 'start', 'python', 'passwordgenerator.py'])
+time.sleep(2)
+
+subprocess.Popen(['cmd', '/c', 'start', sys.executable, 'passwordgenerator.py'])
 
 sys.exit()
