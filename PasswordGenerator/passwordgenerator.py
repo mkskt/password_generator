@@ -11,7 +11,7 @@ LOCAL_VERSION = "1.0.0"
 
 def check_for_updates():
     try:
-        url = "https://raw.githubusercontent.com/mkskt/password_generator/main/version.txt"
+        url = "https://raw.githubusercontent.com/mkskt/password_generator/main/PasswordGenerator/version.txt"
         r = requests.get(url, timeout=5)
         if r.status_code == 200:
             remote_version = r.text.strip()
