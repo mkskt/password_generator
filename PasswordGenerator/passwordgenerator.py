@@ -5,7 +5,7 @@ import requests
 import subprocess
 import sys
 
-LOCAL_VERSION = "1.0.0"
+LOCAL_VERSION = "1.0.1"
 
 ############################################
 
@@ -193,6 +193,7 @@ def passwordCharacterisation():
 
     while True:
 
+        print("TOMEK TO PEDAŁ")
         mainMenu = input("\n===========Password Generator===========\n1. Generate a password\n2. Access passwords\nChoose an option: ")
 
         try:
