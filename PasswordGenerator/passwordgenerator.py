@@ -18,6 +18,7 @@ def check_for_updates():
             if remote_version != LOCAL_VERSION:
                 print(f"New version is available: {remote_version}")
                 while True:
+                  print(f"Current version: {LOCAL_VERSION}")
                   chooseUpdate = input("Do you wish to update? Y/N: ").strip().lower()
                   if chooseUpdate in ('y', 'yes'):
                       print("\nWaiting for an update...")
@@ -31,7 +32,7 @@ def check_for_updates():
                       print("Wrong answer\n")
                       continue
             else:
-                print("Program is up to date!\n")
+                print(f"Program is up to date! {LOCAL_VERSION}\n")
         else:
             print(f"Could not verify version. Status: {r.status_code}")
     except Exception as e:
@@ -193,7 +194,6 @@ def passwordCharacterisation():
 
     while True:
 
-        print("TOMEK TO PEDAŁ")
         mainMenu = input("\n===========Password Generator===========\n1. Generate a password\n2. Access passwords\nChoose an option: ")
 
         try:
