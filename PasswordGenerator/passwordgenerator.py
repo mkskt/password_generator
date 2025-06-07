@@ -5,7 +5,7 @@ import requests
 import subprocess
 import sys
 
-LOCAL_VERSION = "1.1.0"
+LOCAL_VERSION = "1.1.1"
 
 ############################################
 
@@ -33,6 +33,7 @@ def check_for_updates():
                       continue
             else:
                 print(f"Program is up to date! {LOCAL_VERSION}\n")
+                print(f"Changelog {LOCAL_VERSION}:\n- Added option to delete passwords (whole entries)\n- Introduced minor optimization fixes\n- Added Changelog")
         else:
             print(f"Could not verify version. Status: {r.status_code}")
     except Exception as e:
